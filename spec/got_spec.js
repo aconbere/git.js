@@ -10,8 +10,23 @@ minitest.setupListeners();
 
 minitest.context("log", function () {
   this.assertion("it should output the log text without erroring", function (test) {
-    got.log(function (err, data) {
-      sys.p(data);
+    got.log(".", null, null, function (err, data) {
+      if (err) {
+        assert.ok(false);
+      } else {
+        assert.ok(true);
+      }
+      test.finished();
+    });
+  });
+
+  this.assertion("it should output errors if not a git dir", function (test) {
+    got.log("/tmp", null, null, function (err, data) {
+      if (err) {
+        assert.ok(true);
+      } else {
+        assert.ok(false);
+      }
       test.finished();
     });
   });
