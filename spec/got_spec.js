@@ -31,3 +31,28 @@ minitest.context("log", function () {
     });
   });
 });
+
+minitest.context("branch", function () {
+  this.assertion("it should output a list of branches", function (test) {
+    got.branch(".", function (err, data) {
+      if (err) {
+        assert.ok(false);
+      } else {
+        sys.p(data);
+        assert.ok(true);
+      }
+      test.finished();
+    });
+  });
+
+  this.assertion("it should output errors if not a git dir", function (test) {
+    got.log("/tmp", null, null, function (err, data) {
+      if (err) {
+        assert.ok(true);
+      } else {
+        assert.ok(false);
+      }
+      test.finished();
+    });
+  });
+});
