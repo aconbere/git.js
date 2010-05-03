@@ -4,13 +4,13 @@ var fs = require("fs");
 
 var minitest = require("../vendor/minitest.js/minitest");
 
-var got = require("../lib/got");
+var git = require("../lib/git");
 
 minitest.setupListeners();
 
 minitest.context("log", function () {
   this.assertion("it should output the log text without erroring", function (test) {
-    got.log(".", null, null, function (err, data) {
+    git.log(".", null, null, function (err, data) {
       if (err) {
         assert.ok(false);
       } else {
@@ -21,7 +21,7 @@ minitest.context("log", function () {
   });
 
   this.assertion("it should output errors if not a git dir", function (test) {
-    got.log("/tmp", null, null, function (err, data) {
+    git.log("/tmp", null, null, function (err, data) {
       if (err) {
         assert.ok(true);
       } else {
@@ -34,7 +34,7 @@ minitest.context("log", function () {
 
 minitest.context("branch", function () {
   this.assertion("it should output a list of branches", function (test) {
-    got.branch(".", function (err, data) {
+    git.branch(".", function (err, data) {
       if (err) {
         assert.ok(false);
       } else {
@@ -46,7 +46,7 @@ minitest.context("branch", function () {
   });
 
   this.assertion("it should output errors if not a git dir", function (test) {
-    got.log("/tmp", null, null, function (err, data) {
+    git.log("/tmp", null, null, function (err, data) {
       if (err) {
         assert.ok(true);
       } else {
